@@ -1,25 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
+// On importe le CSS
 import './App.css';
+// On importe bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+/* Importer pour informer notre App de l'existence de redux */
+import { Provider } from "react-redux";
+// On importe le sotore
+import store from "./store";
+
+//Importer pour créer les routes
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import ProjectBoard from "./components/ProjectBoard";
+import Navbar from "./components/Navbar";
+import AddProjectTask from './components/ProjectTask/AddProjectTask';
+import UpdateProjectTask from './components/ProjectTask/UpdateProjectTask';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Navbar />
+
+          <Route exact path="/" component={ProjectBoard} />
+
+          {/* Création d'une route */}
+          <Route exact path="/addProjectTask" component={AddProjectTask} />
+
+          <Route exact path="/updateProjectTask/:pt_id" component={UpdateProjectTask} />
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
